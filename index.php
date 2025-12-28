@@ -73,7 +73,6 @@ class Editeur extends Moderateur{
     public function getModerationLevel(){
         return $this->moderationLevel;
     }
-
 }
 
 class Admin extends Moderateur{
@@ -83,8 +82,7 @@ class Admin extends Moderateur{
     public function __construct($id_utilisateur,$username,$email,$password,$createdAt,$last_login,bool $isSuperAdmin = false){
      parent::__construct($id_utilisateur,$username,$email,$password,$createdAt,$last_login);
           $this->isSuperAdmin = $isSuperAdmin;
-    }
-    
+    } 
     public function getIsSuperAdmin(){
         return $this->isSuperAdmin;
     }
@@ -101,9 +99,7 @@ class Auteur extends Utilisateur{
     public function getBio(){
         return $this->bio;
     }
- 
 }
-
 
 class Categorie{
     private int $id_categorie;
@@ -112,7 +108,7 @@ class Categorie{
     private ?categorie $parent;
     private DateTime $createdAt;
 
-    public function __construct($id_categorie,$name,$description,$parent,$createdAt){
+    public function __construct(int $id_categorie,string $name,string $description,?Categorie $parent = null,DateTime $createdAt){
      $this->id_categorie = $id_categorie;
      $this->name = $name;
      $this->description = $description;
@@ -134,6 +130,10 @@ class Categorie{
 
     public function getParent(){
         return $this->parent;
+    }
+
+    public function getCreatedAt(): DateTime {
+        return $this->createdAt;
     }
 }
 
@@ -159,50 +159,81 @@ class Article{
      $this->updatedAt = $updatedAt;  
     }
 
-     public function getIdArticle(){
+     public function getIdArticle():int{
         return $this->id_article;
     }
+    public function setIdArticle(int $id_article):void{
+        $this->id_article = $id_article;
+    }
 
-     public function getTitre(){
+     public function getTitre():string{
         return $this->titre;
     }
+    public function setTitre(string $titre):void{
+        $this->titre = $titre;
+    }
 
-     public function getContent(){
+     public function getContent():string{
         return $this->content;
     }
+    public function setContent(string $content):void{
+        $this->content = $content;
+    }
 
-    public function getStatus(){
+    public function getStatus():string{
         return $this->status;
     }
+    public function setStatus(string $status):void{
+        $this->status = $status;
+    }
     
-    public function getAuteur(){
+    public function getAuteur():Utilisateur {
         return $this->auteur;
     }
+    public function setAuteur(Utilisateur $auteur):void{
+        $this->auteur = $auteur;
+    }
 
-    public function getCategories() {
+    public function getCategories():array {
         return $this->categories;
     }
     
-    public function setCategories(array $categories) {
+    public function setCategories(array $categories):void {
         $this->categories = $categories;
     }
 
-    public function getPublishedAt(){
-       return $this->publishedAt;
-   }
+    public function getCreatedAt(): DateTime {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(DateTime $date): void {
+        $this->createdAt = $date;
+    }
+
+    public function getPublishedAt(): DateTime {
+        return $this->publishedAt;
+    }
+
+    public function setPublishedAt(DateTime $date): void {
+        $this->publishedAt = $date;
+    }
+
+    public function getUpdatedAt(): DateTime {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(DateTime $date): void {
+        $this->updatedAt = $date;
+    }
 }
-
-
 class commentaire{
 
     private int $id_commentaire;
-    private string $libelle;
     private string $description;
     private DateTime $createdAt;
 
-    public function __construct($id_commentaire,$libelle,$description,$createdAt){
+    public function __construct($id_commentaire,$description,$createdAt){
      $this->id_commentaire = $id_commentaire;
-     $this->libelle = $libelle;
      $this->description = $description;
      $this->createdAt = $createdAt;  
     }
@@ -213,14 +244,6 @@ class commentaire{
 
     public function setIdUtilisateur($id_commentaire){
         $this->id_commentaire = $id_commentaire;
-    }
-
-    public function getLibelle(){
-        return $this->libelle;
-    }
-
-    public function setLibelle($libelle){
-        $this->libelle = $libelle;
     }
 
     public function getDescription(){
@@ -239,5 +262,4 @@ class commentaire{
         $this->createdAt = $createdAt;
     }
 }
-
 ?>
